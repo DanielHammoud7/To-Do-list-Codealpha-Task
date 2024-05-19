@@ -1,32 +1,236 @@
-# Prerequisites
-*.d
+#include<bits/stdc++.h>
+#include<unistd.h>
+#include<ctime>
+#include <chrono>
+#define CS "\033[2J"
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+using namespace std;
 
-# Precompiled Headers
-*.gch
-*.pch
+// Function to display the main menu
+void main_menu() {
+    string t="a";
+    sleep(0.2);
+    cout<<CS;
+    cout<<"\033[46m";
+    cout << "\033[30m\033[7;30m   ==============================   " << endl;
+    cout << "   =          TO-DO LIST        =   " << endl;
+    cout << "   ==============================   " << endl;
+    cout << "   = 1.  Add Task               =   " << endl;
+    cout << "   = 2.  Make As Completed      =   " << endl;
+    cout << "   = 3.  Show All Tasks         =   " << endl;
+    cout << "   = 4.  Show Completed Tasks   =   " << endl;
+    cout << "   = 5.  Exit                   =   " << endl;
+    cout << "   ==============================   \033[46m\n\n\n\n\n\n\n\n\n\n" << endl;
+}
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+int main() {
+    time_t now = time(0);
+    struct tm* timeinfo;
+    
+    string red = "\033[31m";
+    string green = "\033[32m";
+    string yellow = "\033[33m";
+    string blue = "\033[34m";
+    string reset = "\033[0m";
 
-# Fortran module files
-*.mod
-*.smod
+    string t="a";
+    string back;
+    int choice,num_of_choice,n=0;
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+    // Struct to store task information
+    struct task_info {
+        string task_name;
+        bool task_type=false;
+    };
+    task_info task;
+    vector<struct task_info> tasks;
+    vector<struct task_info> completed_tasks;
+    int num_of_tasks = tasks.size();
 
-# Executables
-*.exe
-*.out
-*.app
+main:
+    main_menu();
+    cin>>choice;
+
+#include<bits/stdc++.h>
+#include<unistd.h>
+#include<ctime>
+#include <chrono>
+#define CS "\033[2J"
+
+using namespace std;
+
+// Function to display the main menu
+void main_menu() {
+    string t="a";
+    sleep(0.2);
+    cout<<CS;
+    cout<<"\033[46m";
+    cout << "\033[30m\033[7;30m   ==============================   " << endl;
+    cout << "   =          TO-DO LIST        =   " << endl;
+    cout << "   ==============================   " << endl;
+    cout << "   = 1.  Add Task               =   " << endl;
+    cout << "   = 2.  Make As Completed      =   " << endl;
+    cout << "   = 3.  Show All Tasks         =   " << endl;
+    cout << "   = 4.  Show Completed Tasks   =   " << endl;
+    cout << "   = 5.  Exit                   =   " << endl;
+    cout << "   ==============================   \033[46m\n\n\n\n\n\n\n\n\n\n" << endl;
+}
+
+int main() {
+    time_t now = time(0);
+    struct tm* timeinfo;
+    
+    string red = "\033[31m";
+    string green = "\033[32m";
+    string yellow = "\033[33m";
+    string blue = "\033[34m";
+    string reset = "\033[0m";
+
+    string t="a";
+    string back;
+    int choice,num_of_choice,n=0;
+
+    // Struct to store task information
+    struct task_info {
+        string task_name;
+        bool task_type=false;
+    };
+    task_info task;
+    vector<struct task_info> tasks;
+    vector<struct task_info> completed_tasks;
+    int num_of_tasks = tasks.size();
+
+main:
+    main_menu();
+    cin>>choice;
+
+    switch (choice) {
+        case 1:
+            // Add task
+            cout << "Enter task:";
+            cin.ignore();
+            getline (cin,task.task_name);
+            if(task.task_name[0]<95) {
+                task.task_name[0]=+32;
+            }
+            tasks.push_back(task);
+            cout << "    \033[0m\033[32;7mTask Added Successfully ☑️\033[0m" << endl;
+            sleep(1);
+            goto main;
+
+        case 2:
+            // Make task as completed
+            for(int v=1; v<=tasks.size(); v++) {
+                cout <<v<<"."<<tasks[v-1].task_name << endl;
+            }
+            cout<<"Which task you want to mark:";
+            cin>>num_of_choice;
+            if(num_of_choice>tasks.size()) {
+                cout << "        \033[0m\033[43m⚠️Invalid Choice ⚠️\033[0m" << endl;
+                sleep(1);
+            }
+            else {
+                completed_tasks.push_back(tasks[num_of_choice-1]);
+                tasks.erase(tasks.begin()+(num_of_choice-1));
+                sleep(1);
+            }
+            goto main;
+
+        case 3:
+            // Show all tasks
+            n==0;
+            if(tasks.empty()) {
+                cout <<"         \033[0m\033[41m No Tasks Added \033[0m" << endl;
+                sleep(1);
+                goto main;
+            }
+            else {
+                cout<<CS;
+                cout << "====================================" << endl;
+                cout << "=            Your Tasks            =" << endl;
+                cout << "====================================" << endl;
+                for(int v=1; v<=tasks.size(); v++) {
+                    cout <<v<<"-   "<<tasks[v-1].task_name<< endl;
+                }
+                cout << "====================================" << endl;
+                cout << "\n\nPress b to back:" << endl;
+                cin>>back;
+                if(back=="b") {
+                    goto main;
+                }
+            }
+            break;
+
+        case 4:
+            // Show completed tasks
+            if(completed_tasks.empty()) {
+                cout << "There is no Tasks completed!" << endl;
+                sleep(1);
+            }
+            else {
+                for(auto it: completed_tasks) {
+                    cout << "✅ \033[40;32m"<< it.task_name<<"\033[0m"<< endl;
+                }
+            }
+            sleep(2);
+            goto main;
+
+        case 5:
+            // Exit program
+            // Top of the box
+            cout  <<"    \033[7;31m"<<red << "┌────────────────────────────┐" << reset << endl;
+            // Text in the box
+            cout << "    \033[7;31m"<<red << "│" << green << " Thank you for using My program" << red << "│" << reset << endl;
+            // Bottom of the box
+            cout << "    \033[7;31m"<<red <<￼Enter    switch (choice) {
+        case 1:
+            // Add task
+            cout << "Enter task:";
+            cin.ignore();
+            getline (cin,task.task_name);
+            if(task.task_name[0]<95) {
+                task.task_name[0]=+32;
+            }
+            tasks.push_back(task);
+            cout << "    \033[0m\033[32;7mTask Added Successfully ☑️\033[0m" << endl;
+            sleep(1);
+            goto main;
+
+        case 2:
+            // Make task as completed
+            for(int v=1; v<=tasks.size(); v++) {
+                cout <<v<<"."<<tasks[v-1].task_name << endl;
+            }
+            cout<<"Which task you want to mark:";
+            cin>>num_of_choice;
+            if(num_of_choice>tasks.size()) {
+                cout << "        \033[0m\033[43m⚠️Invalid Choice ⚠️\033[0m" << endl;
+                sleep(1);
+            }
+            else {
+          completed_tasks.push_back(tasks[num_of_choice-1]);
+                tasks.erase(tasks.begin()+(num_of_choice-1));
+                sleep(1);
+            }
+            goto main;
+
+        case 3:
+            // Show all tasks
+            n==0;
+            if(tasks.empty()) {
+                cout <<"         \033[0m\033[41m No Tasks Added \033[0m" << endl;
+                sleep(1);
+                goto main;
+            }
+            else {
+                cout<<CS;
+                cout << "====================================" << endl;
+                cout << "=            Your Tasks            =" << endl;
+                cout << "====================================" << endl;
+                for(int v=1; v<=tasks.size(); v++) {
+                    cout <<v<<"-   "<<tasks[v-1].task_name<< endl;
+                }
+                cout << "====================================" << endl;
+                cout << "\n\nPress b to back:" << endl;
+                cin>>back;
+                if(back=="b") {
